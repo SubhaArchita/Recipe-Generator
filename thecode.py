@@ -16,7 +16,7 @@ def clean_text(text):
     return text
 
 #cleaning the text
-text_columns = ["name", "descripition", "ingredients", "steps", "Neutretion"]
+text_columns = ["name", "descripition", "ingredients", "steps", "Nutrition"]
 for col in text_columns:
     df[col] = df[col].fillna("").apply(clean_text)
 
@@ -29,7 +29,7 @@ df["descripition"] = df["descripition"].astype(str).apply(clean_description)
 
 # merging columns
 df["combined_text"] = (
-    df["ingredients"] + " " + df["steps"] + " " + df["name"] + " " + df["descripition"] + " " + df["Neutretion"]
+    df["ingredients"] + " " + df["steps"] + " " + df["name"] + " " + df["descripition"] + " " + df["Nutrition"]
 )
 
 # TF-IDF
@@ -54,9 +54,9 @@ def recommend_recipes(user_ingredients, df, vectorizer, tfidf_matrix, top_n=10):
     filtered_df = pd.DataFrame(filtered_recipes)
 
     if filtered_df.empty:
-        return df.iloc[top_indices][["name", "ingredients", "descripition", "steps", "Neutretion"]]
+        return df.iloc[top_indices][["name", "ingredients", "descripition", "steps", "Nutrition"]]
 
-    return filtered_df[["name", "ingredients", "descripition", "steps", "Neutretion"]]
+    return filtered_df[["name", "ingredients", "descripition", "steps", "Nutrition"]]
 
 # streamlit 
 st.title("Vegan Recipe Recommender")
@@ -76,6 +76,6 @@ if user_input:
                 st.write(f"**Description:** {row.get('descripition', 'N/A')}")
                 st.write(f"**Ingredients:** {row['ingredients']}")
                 st.write(f"**Steps:** {row.get('steps', 'N/A')}")
-                st.write(f"**Nutrition Info:** {row.get('Neutretion', 'N/A')}")
+                st.write(f"**Nutrition Info:** {row.get('Nutrition', 'N/A')}")
 
 
