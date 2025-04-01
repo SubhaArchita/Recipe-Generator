@@ -59,7 +59,7 @@ def recommend_recipes(user_ingredients, df, vectorizer, tfidf_matrix, top_n=10):
     return filtered_df[["name", "ingredients", "descripition", "steps", "Neutretion"]]
 
 # streamlit 
-st.title("🥗 Vegan Recipe Recommender")
+st.title("Vegan Recipe Recommender")
 st.write("Enter ingredients you have, and get the best vegan recipes!")
 
 user_input = st.text_input("Enter ingredients (comma-separated):")
@@ -68,9 +68,9 @@ if user_input:
     recommendations = recommend_recipes(user_input.lower(), df, vectorizer, tfidf_matrix)
 
     if recommendations.empty:
-        st.write("⚠️ No matching recipes found. Try different ingredients.")
+        st.write("No matching recipes found. Try different ingredients.")
     else:
-        st.subheader("🍽️ Recommended Recipes:")
+        st.subheader("Recommended Recipes:")
         for i, row in recommendations.iterrows():
             with st.expander(f"{row['name']}"):
                 st.write(f"**Description:** {row.get('descripition', 'N/A')}")
